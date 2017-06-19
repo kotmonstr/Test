@@ -10,7 +10,7 @@ class Action
         $statusRegister = $Mysql->checkUserRegister();
         $validate = $this->chekData();
 
-        if (isset($_POST['name']) && isset($_POST['login']) && isset($_POST['password']) && !$statusRegister) {
+        if ($validate == true && !$statusRegister) {
             //create
             $Mysql->addNewUser($_POST['name'], $_POST['login'], $_POST['password']);
         } elseif ($validate == true) {

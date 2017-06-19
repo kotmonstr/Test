@@ -27,7 +27,7 @@ class Mysql
 
         $sql = "INSERT INTO $this->tableUsers ( id, name, login, password) VALUES (1,'" . $name . "','" . $login . "','" . $password . "')";
         if (mysqli_query($this->link, $sql)) {
-            echo "New record created successfully" . PHP_EOL;
+            echo "New record created successfully" . "<br>";
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($this->link) . PHP_EOL;
         }
@@ -51,7 +51,7 @@ class Mysql
     public function updateUser($name,$login,$password){
         $sql = "UPDATE $this->tableUsers SET name= '". $name ."', login='" .$login. "', password= '".$password."' WHERE `id`=1";
         if ($this->link->query($sql) === TRUE) {
-            //echo "Record updated successfully";
+            echo "Record updated successfully"."<br>";
         } else {
             //echo "Error updating record: " . $this->link->error;
         }

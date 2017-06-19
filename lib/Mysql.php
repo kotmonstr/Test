@@ -23,13 +23,27 @@ class Mysql
     public function addNewUser($name, $login, $password)
     {
 
-        $sql = "INSERT INTO $this->tableUsers ( name, login, password) VALUES ('" . $name . "','" . $login . "','" . $password . "')";
+        $sql = "INSERT INTO $this->tableUsers ( id, name, login, password) VALUES (1,'" . $name . "','" . $login . "','" . $password . "')";
         if (mysqli_query($this->link, $sql)) {
             echo "New record created successfully" . PHP_EOL;
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($this->link) . PHP_EOL;
         }
 
+    }
+    public function checkUserRegister(){
+        $sql = "SELECT * FROM $this->tableUsers WHERE 'id' = 1";
+        $result = mysqli_query($this->link, $sql);
+        
+
+        print_r($result);exit();
+
+        if (isset($sql)) {
+
+            echo "allready registred" . PHP_EOL;
+        } else {
+            echo "non registred" . PHP_EOL;
+        }
     }
 }
 

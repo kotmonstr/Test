@@ -7,12 +7,14 @@ class Action
     function __construct()
     {
 
-        if (isset($_POST['name']) && isset($_POST['login']) && isset($_POST['password'])) {
+        if (isset($_GET['name']) && isset($_GET['login']) && isset($_GET['password'])) {
 
             $Mysql = new Mysql();
-            $Mysql->addNewUser($_POST['name'], $_POST['login'], $_POST['password']);
+            $Mysql->addNewUser($_GET['name'], $_GET['login'], $_GET['password']);
         }
 
+        $Mysql = new Mysql();
+        $Mysql->checkUserRegister();
 
     }
 }

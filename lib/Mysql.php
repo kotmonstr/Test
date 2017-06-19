@@ -9,6 +9,7 @@ class Mysql
     public $tableUsers = 'users';
     public $link;
 
+    //default constructor
     function __construct()
     {
 
@@ -16,10 +17,11 @@ class Mysql
         if (!$this->link) {
             die('Ошибка соединения: ' . mysqli_error() . PHP_EOL);
         }
-        echo 'Успешно соединились' . PHP_EOL;
+       //echo 'Успешно соединились' . PHP_EOL;
 
     }
 
+    // add new user
     public function addNewUser($name, $login, $password)
     {
 
@@ -31,18 +33,27 @@ class Mysql
         }
 
     }
+    // check registring status
     public function checkUserRegister(){
-        $sql = "SELECT * FROM $this->tableUsers WHERE 'id' = 1";
+        $sql = "SELECT * FROM $this->tableUsers WHERE `id` = 1";
         $result = mysqli_query($this->link, $sql);
-        
-
-        print_r($result);exit();
-
-        if (isset($sql)) {
-
-            echo "allready registred" . PHP_EOL;
+        $row = mysqli_num_rows($result);
+         if ($row >= 1) {
+             //User registred
+           return true;
         } else {
-            echo "non registred" . PHP_EOL;
+             return false;
+            //User non registred
+        }
+    }
+
+    // check registring status
+    public function updateUser($name,$login,$password){
+        $sql = "UPDATE $this->tableUsers SET name= '". $name ."', login='" .$login. "', password= '".$password."' WHERE `id`=1";
+        if ($this->link->query($sql) === TRUE) {
+            //echo "Record updated successfully";
+        } else {
+            //echo "Error updating record: " . $this->link->error;
         }
     }
 }

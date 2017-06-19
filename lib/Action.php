@@ -1,21 +1,35 @@
 <?php
 
+// GRUD
 class Action
 {
 
-
     function __construct()
     {
+        $Mysql = new Mysql();
+        $statusRegister = $Mysql->checkUserRegister();
+        $validate = $this->chekData();
 
-        if (isset($_GET['name']) && isset($_GET['login']) && isset($_GET['password'])) {
-
-            $Mysql = new Mysql();
-            $Mysql->addNewUser($_GET['name'], $_GET['login'], $_GET['password']);
+        if (isset($_POST['name']) && isset($_POST['login']) && isset($_POST['password']) && !$statusRegister) {
+            //create
+            $Mysql->addNewUser($_POST['name'], $_POST['login'], $_POST['password']);
+        } elseif ($validate == true) {
+            // update
+            $Mysql->updateUser($_POST['name'], $_POST['login'], $_POST['password']);
+        } else {
+            //empty data
         }
 
-        $Mysql = new Mysql();
-        $Mysql->checkUserRegister();
+    }
 
+    // server validation
+    private function chekData()
+    {
+        if(isset($_POST['name']) && isset($_POST['name']) !='' && isset($_POST['login']) && isset($_POST['login']) !='' && isset($_POST['password']) && isset($_POST['password']) !=''){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 
